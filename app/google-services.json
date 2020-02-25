@@ -8,9 +8,46 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:269890710839:android:fd51b972141a0c3420beb2",
+        "mobilesdk_app_id": "1:269890710839:android:4186dfde5dee582520beb2",
         "android_client_info": {
           "package_name": "com.danmin.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269890710839-515qfp7c2vc21ld7ou8ilaeuhda0so2u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danmin.myapplication",
+            "certificate_hash": "8401791c972dfe14240a50d117ec9d555db853b9"
+          }
+        },
+        {
+          "client_id": "269890710839-vmnjlga38toh5sqdb80iog8b4537ef28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjgenWk8cr2EcNiQDzUZmg72IbdvnugsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269890710839-vmnjlga38toh5sqdb80iog8b4537ef28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269890710839:android:fd51b972141a0c3420beb2",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
@@ -18,7 +55,7 @@
           "client_id": "269890710839-c0sojqpkbl1rcetcdfmsudq6jb3aj51p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.danmin.myapplication",
+            "package_name": "com.example.myapplication",
             "certificate_hash": "8401791c972dfe14240a50d117ec9d555db853b9"
           }
         },
