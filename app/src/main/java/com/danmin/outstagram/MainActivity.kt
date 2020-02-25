@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.danmin.outstagram
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

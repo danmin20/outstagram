@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.danmin.outstagram
 
 import org.junit.Test
 
