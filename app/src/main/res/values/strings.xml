@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Howlstagram</string>
+    <string name="app_name">Outstagram</string>
     <string name="facebook_app_id">797281377425288</string>
     <string name="fb_login_protocol_scheme">fb797281377425288</string>
 
