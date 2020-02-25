@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
     var googleSignInClient: GoogleSignInClient? = null
     var GOOGLE_LOGIN_CODE = 9001
     var callbackManager: CallbackManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -55,6 +56,19 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         //printHashKey()
         callbackManager = CallbackManager.Factory.create()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager?.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE_LOGIN_CODE) {
+            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            if (result.isSuccess) {
+                var account = result.signInAccount
+                // google_login 2
+                firebaseAuthWithGoogle(account)
+            }
+        }
     }
 
     fun printHashKey() {
@@ -85,9 +99,9 @@ class LoginActivity : AppCompatActivity() {
             .logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult?) {
+                override fun onSuccess(loginResult: LoginResult) {
                     //facebook_login 2
-                    handleFacebookAccessToken(result?.accessToken)
+                    handleFacebookAccessToken(loginResult.accessToken)
                 }
 
                 override fun onCancel() {
@@ -99,8 +113,8 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
-    fun handleFacebookAccessToken(token: AccessToken?) {
-        var credential = FacebookAuthProvider.getCredential(token?.token!!)
+    fun handleFacebookAccessToken(token: AccessToken) {
+        var credential = FacebookAuthProvider.getCredential(token.token)
         auth?.signInWithCredential(credential)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -112,19 +126,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
                 }
             }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        callbackManager?.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GOOGLE_LOGIN_CODE) {
-            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            if (result.isSuccess) {
-                var account = result.signInAccount
-                // google_login 2
-                firebaseAuthWithGoogle(account)
-            }
-        }
     }
 
     fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
