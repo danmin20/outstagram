@@ -45,17 +45,17 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:269890710839:android:fd51b972141a0c3420beb2",
+        "mobilesdk_app_id": "1:269890710839:android:86d4d89091a98a5220beb2",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "com.danmin.outstagram"
         }
       },
       "oauth_client": [
         {
-          "client_id": "269890710839-c0sojqpkbl1rcetcdfmsudq6jb3aj51p.apps.googleusercontent.com",
+          "client_id": "269890710839-3iupj38f3eq42rncmo9nh3rhksl82dn6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.myapplication",
+            "package_name": "com.danmin.outstagram",
             "certificate_hash": "8401791c972dfe14240a50d117ec9d555db853b9"
           }
         },
