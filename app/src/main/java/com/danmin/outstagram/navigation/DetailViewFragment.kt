@@ -41,6 +41,9 @@ class DetailViewFragment : Fragment() {
                 ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                     contentDTOs.clear()
                     contentUidList.clear()
+                    //querySnapshot이 종종 signout시 null을 반환하기도 함
+                    if (querySnapshot == null) return@addSnapshotListener
+
                     for (snapshot in querySnapshot!!.documents) {
                         var item = snapshot.toObject(ContentDTO::class.java)
                         contentDTOs.add(item!!)
@@ -74,9 +77,6 @@ class DetailViewFragment : Fragment() {
             //likes count
             viewholder.detailviewitem_favoritecounter_textview.text =
                 "Likes " + contentDTOs!![p1].favoriteCount
-            //profile image
-            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl)
-                .into((viewholder.detailviewitem_profile_image))
 
             //when fav button is clicked
             viewholder.detailviewitem_favorite_imageview.setOnClickListener { favoriteEvent(p1) }
@@ -87,6 +87,16 @@ class DetailViewFragment : Fragment() {
             } else {
                 //unliked
                 viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite_border)
+            }
+            //when profile image is clicked
+            viewholder.detailviewitem_profile_image.setOnClickListener {
+                var fragment = UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid", contentDTOs[p1].uid)
+                bundle.putString("userId", contentDTOs[p1].userId)
+                fragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.main_content, fragment)?.commit()
             }
         }
 
