@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.danmin.outstagram.LoginActivity
 import com.danmin.outstagram.MainActivity
 import com.danmin.outstagram.R
+import com.danmin.outstagram.navigation.model.AlarmDTO
 import com.danmin.outstagram.navigation.model.ContentDTO
 import com.danmin.outstagram.navigation.model.FollowDTO
 import com.google.firebase.auth.FirebaseAuth
@@ -148,7 +149,7 @@ class UserFragment : Fragment() {
                 followDTO = FollowDTO()
                 followDTO!!.followerCount = 1
                 followDTO!!.followers[currentUserUid!!] = true
-
+                followAlarm(uid!!)
                 transaction.set(tsDocFollower, followDTO!!)
                 return@runTransaction
             }
@@ -160,10 +161,21 @@ class UserFragment : Fragment() {
                 //팔로잉 추가 동작
                 followDTO!!.followerCount = followDTO!!.followerCount + 1
                 followDTO!!.followers[currentUserUid!!] = true
+                followAlarm(uid!!)
             }
             transaction.set(tsDocFollower, followDTO!!)
             return@runTransaction
         }
+    }
+
+    fun followAlarm(destinationUid: String) {
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = auth?.currentUser?.email
+        alarmDTO.uid = auth?.currentUser?.uid
+        alarmDTO.kind = 2
+        alarmDTO.timestamp = System.currentTimeMillis()
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 
     fun getProfileImage() {
