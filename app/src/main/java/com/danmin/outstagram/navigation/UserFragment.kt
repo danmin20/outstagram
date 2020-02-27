@@ -20,6 +20,7 @@ import com.danmin.outstagram.R
 import com.danmin.outstagram.navigation.model.AlarmDTO
 import com.danmin.outstagram.navigation.model.ContentDTO
 import com.danmin.outstagram.navigation.model.FollowDTO
+import com.danmin.outstagram.navigation.utill.FcmPush
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
@@ -176,6 +177,9 @@ class UserFragment : Fragment() {
         alarmDTO.kind = 2
         alarmDTO.timestamp = System.currentTimeMillis()
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+        var message = auth?.currentUser?.email + getString(R.string.alarm_follow)
+        FcmPush.instance.sendMessage(destinationUid, "Outstagram", message)
     }
 
     fun getProfileImage() {
