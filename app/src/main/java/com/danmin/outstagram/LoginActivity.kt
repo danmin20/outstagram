@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         auth = FirebaseAuth.getInstance()
         email_login_button.setOnClickListener {
-            signinAndSignup()
+            emailLogin()
         }
         google_signin_button.setOnClickListener {
             // google_login 1
@@ -94,6 +94,14 @@ class LoginActivity : AppCompatActivity() {
 //        }
 //
 //    }
+
+    fun emailLogin() {
+        if (email_edittext.text.toString().isNullOrEmpty() || password_edittext.text.toString().isNullOrEmpty()) {
+            Toast.makeText(this, getString(R.string.signout_fail_null), Toast.LENGTH_SHORT).show()
+        } else {
+            signinAndSignup()
+        }
+    }
 
     fun googleLogin() {
         var signInIntent = googleSignInClient?.signInIntent
@@ -157,7 +165,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     //create an account
                     moveMainPage(task.result?.user)
-                } else if (!task.exception?.message.isNullOrEmpty()) {
+                } else if (task.exception?.message.isNullOrEmpty()) {
                     //error message
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
                 } else {
